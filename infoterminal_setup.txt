@@ -1,0 +1,83 @@
+Update and upgrade the system
+	sudo apt update
+	sudo apt upgrade -y
+
+Install Apache
+	sudo apt install apache2 -y
+
+Start and enable Apache service
+	sudo systemctl start apache2
+
+To enable Apache to start on boot, run:
+	sudo systemctl enable apache2
+	
+Change Ownership of the Directory  (This changes ownership to the user pi and the group www-data (the default group for Apache)
+	sudo chown -R pi:www-data /var/www/html
+
+Set Permissions for the Directory (755: Read and execute permissions for everyone, but write permissions only for the owner (more secure):)
+	sudo chmod -R 777 /var/www/html
+	
+Restart Apache (optional)
+	sudo systemctl restart apache2
+
+
+How to install kiosk mode on Rasberry PI 
+
+Step1: sudo raspi-config
+
+Step2: enable auto login
+
+Step3: sudo nano run_kiosk.sh
+
+Step4: add the following text -
+	sleep 4 
+	/bin/chromium-browser --kiosk --start-maximized --ozone-platform=wayland --noerrdialogs --disable-infobars --enable-features=OverlayScrollbar https://add.mkdream.in
+	
+Step5: sudo chmod+x run_kiosk.sh
+
+step6: sudo nano .config/wayfire.ini
+
+step7: add the following text -
+	[autostart]
+	screensaver = false
+	dpms = false
+	kiosk = /home/server1/run_kiosk.sh
+	
+step8: sudo apt install ydotool
+
+step9: sudo nano hide_cursor.sh 
+
+step10: add the following text 
+	sleep 8
+	sudo ydotool mousemove --delay 1000 10000 10000
+	
+step11: sudo chmod+x hide_cursor.sh
+
+step12: add the following text -
+	[autostart]
+	screensaver = false
+	dpms = false
+	kiosk = /home/server1/run_kiosk.sh
+	cursor = /home/server1/hide_cursor.sh
+	
+step13: sudo apt install wtype
+
+step14: sudo nano run_keystroke.sh
+
+step15: add the following text 
+	sleep 10
+	while true; do 
+			wtype -M ctrl -p Tab
+			wtype -M ctrl -p F5
+			sleep 19
+	done
+	
+step16: sudo chmod+x run_keystroke.sh 
+
+step17: add the following text -
+	[autostart]
+	screensaver = false
+	dpms = false
+	kiosk = /home/server1/run_kiosk.sh
+	cursor = /home/server1/hide_cursor.sh
+	keystroke = /home/server1/run_keystroke.sh
