@@ -33,7 +33,7 @@ Step4: add the following text -
 	sleep 4 
 	/bin/chromium-browser --kiosk --start-maximized --ozone-platform=wayland --noerrdialogs --disable-infobars --enable-features=OverlayScrollbar https://add.mkdream.in
 	
-Step5: sudo chmod+x run_kiosk.sh
+Step5: sudo chmod +x run_kiosk.sh
 
 step6: sudo nano .config/wayfire.ini
 
@@ -51,7 +51,7 @@ step10: add the following text
 	sleep 8
 	sudo ydotool mousemove --delay 1000 10000 10000
 	
-step11: sudo chmod+x hide_cursor.sh
+step11: sudo chmod +x hide_cursor.sh
 
 step12: add the following text -
 	[autostart]
@@ -72,7 +72,7 @@ step15: add the following text
 			sleep 19
 	done
 	
-step16: sudo chmod+x run_keystroke.sh 
+step16: sudo chmod +x run_keystroke.sh 
 
 step17: add the following text -
 	[autostart]
