@@ -81,3 +81,19 @@ step17: add the following text -
 	kiosk = /home/server1/run_kiosk.sh
 	cursor = /home/server1/hide_cursor.sh
 	keystroke = /home/server1/run_keystroke.sh
+-------------------------------------------------------------------------------------
+1. List FTP Users
+The users for your FTP server are typically defined in the system's user database. You can view the users who have been created on your Raspberry Pi by checking the /etc/passwd file. To list all users, you can run:
+
+cut -d: -f1 /etc/passwd
+
+2. Change FTP User Passwords
+To change the password for a specific user on your Raspberry Pi, you can use the passwd command. Here’s how:
+
+Open the terminal.
+
+Run the following command, replacing username with the actual username:
+
+
+sudo passwd username
+You will be prompted to enter a new password and confirm it.
