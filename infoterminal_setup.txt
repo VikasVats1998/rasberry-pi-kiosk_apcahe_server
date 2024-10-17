@@ -25,7 +25,7 @@ How to install kiosk mode on Rasberry PI
 
 Step1: sudo raspi-config
 
-Step2: enable auto login
+Step2: enable auto login for Desktop
 
 Step3: sudo nano run_kiosk.sh
 
@@ -105,16 +105,18 @@ Step 2: Configure vsftpd
 
 	Find anonymous_enable=YES and change it to:
 
-	anonymous_enable=NO
-		Uncomment the line local_enable=YES.
-		Uncomment the line write_enable=YES.
+		anonymous_enable=NO
+		local_enable=YES
+		write_enable=YES
+
 	Add the following line at the end of the file to restrict users to their home directories:
 
-	chroot_local_user=YES
+		chroot_local_user=YES
+
 If you want to allow users to navigate outside their home directory (to /var/www/html), you can add the following lines:
 
-	allow_writeable_chroot=YES
-		Save and close the file (press CTRL+X, then Y, and Enter).
+		allow_writeable_chroot=YES
+			Save and close the file (press CTRL+X, then Y, and Enter).
 
 Step 3: Create a User for FTP Access
 	You’ll need to create a user or modify an existing user that has access to /var/www/html/.
@@ -161,3 +163,5 @@ Run the following command, replacing username with the actual username:
 
 sudo passwd username
 You will be prompted to enter a new password and confirm it.
+-----------------------------------------------------------------------------------------
+How to change FTP user password
