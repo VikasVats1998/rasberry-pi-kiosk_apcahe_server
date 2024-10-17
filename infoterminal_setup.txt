@@ -148,10 +148,12 @@ Password: The password for the user.
 Port: 21.
 Click Quickconnect and you should be able to access the /var/www/html/ directory and manage files.
 -------------------------------------------------------------------------------------
+How to change FTP user password
+
 1. List FTP Users
 The users for your FTP server are typically defined in the system's user database. You can view the users who have been created on your Raspberry Pi by checking the /etc/passwd file. To list all users, you can run:
 
-cut -d: -f1 /etc/passwd
+	cut -d: -f1 /etc/passwd
 
 2. Change FTP User Passwords
 To change the password for a specific user on your Raspberry Pi, you can use the passwd command. Here’s how:
@@ -164,4 +166,6 @@ Run the following command, replacing username with the actual username:
 sudo passwd username
 You will be prompted to enter a new password and confirm it.
 -----------------------------------------------------------------------------------------
-How to change FTP user password
+To use Websocket 
+	pip3 install websockets --break-system-packages
+
