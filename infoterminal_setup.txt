@@ -166,6 +166,32 @@ Run the following command, replacing username with the actual username:
 sudo passwd username
 You will be prompted to enter a new password and confirm it.
 -----------------------------------------------------------------------------------------
-To use Websocket 
+To use Websocket  for python
 	pip3 install websockets --break-system-packages
 
+-----------------------------------------------------------------------------------------
+1. Install Node.js and npm:
+First, update the package list:
+
+	sudo apt update
+
+Then, install Node.js and npm:
+
+	sudo apt install nodejs npm
+
+After installation, check if npm and node are installed correctly:
+
+	node -v
+	npm -v
+
+This should display the versions of Node.js and npm.
+
+2. Install the ws module:
+Once npm is installed, you can install the ws WebSocket package:
+
+	sudo npm install ws
+
+3. Run Your Server:
+After installing the ws module, restart your Node.js WebSocket server:
+
+	node /var/www/html/server.js
