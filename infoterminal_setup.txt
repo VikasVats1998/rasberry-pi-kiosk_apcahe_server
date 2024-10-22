@@ -195,3 +195,39 @@ Once npm is installed, you can install the ws WebSocket package:
 After installing the ws module, restart your Node.js WebSocket server:
 
 	node /var/www/html/server.js
+
+------------------------------------------------------------------------------------------------
+
+Grant Write Permission to the /var/www/html/media/ Directory:
+
+You can give write permissions to the user running the Node.js process by changing the ownership or permissions of the /media/ directory.
+
+Option 1: Change Ownership to the Current User
+
+First, check which user is running Node.js. If you're using pi or another user, you can set the ownership of the directory to that user:
+
+	sudo chown -R $(whoami):$(whoami) /var/www/html/media/
+
+This command gives the current user ownership of the directory.
+
+Option 2: Modify Permissions for All Users
+
+If you prefer not to change the ownership, you can allow write access to all users for the /media/ directory:
+
+	sudo chmod -R 777 /var/www/html/media/
+
+This command grants read, write, and execute permissions to everyone, which is less secure but might be sufficient if you're just testing.
+
+Verify Permissions:
+
+After applying the changes, you can verify the directory permissions by running:
+
+	ls -ld /var/www/html/media/
+
+This will show the current permissions for the directory, which should include write access.
+
+Restart Your Node.js Server:
+
+Once the permissions are updated, restart your Node.js server:
+
+	node /var/www/html/server.js
