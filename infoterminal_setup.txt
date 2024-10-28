@@ -231,3 +231,10 @@ Restart Your Node.js Server:
 Once the permissions are updated, restart your Node.js server:
 
 	node /var/www/html/server.js
+
+
+---------------------------------------------------------------------------------------------
+2. Install GPIO Control Libraries
+You'll need a library to manage GPIO pins from JavaScript. onoff is a popular choice:
+
+npm install onoff
