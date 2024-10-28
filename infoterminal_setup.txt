@@ -238,3 +238,11 @@ Once the permissions are updated, restart your Node.js server:
 You'll need a library to manage GPIO pins from JavaScript. onoff is a popular choice:
 
 npm install onoff
+
+
+3. Use Alternative GPIO Library (Optional)
+If the error persists, try using pigpio, which is more stable with recent versions of Node.js on Raspberry Pi.
+
+Install pigpio:
+
+npm install pigpio
