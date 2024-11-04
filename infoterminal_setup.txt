@@ -24,7 +24,79 @@ Restart Apache (optional)
 How to install kiosk mode on Rasberry PI 
 
 Step1: sudo raspi-config
+----------------------------------------------
+New Update Kiosk
 
+Prerequisites
+Install LabWC if it is not already installed.
+
+On Debian-based systems:
+
+sudo apt install labwc
+On Arch-based systems:
+
+sudo pacman -S labwc
+Create a new user (optional but recommended for security).
+
+Use a dedicated kiosk user with restricted permissions.
+
+
+sudo adduser kiosk-user
+Set up LabWC autostart for the kiosk user.
+
+Steps to Configure Kiosk Mode
+Create an autostart script for LabWC that launches the desired application in fullscreen on startup.
+
+
+mkdir -p ~/.config/labwc
+nano ~/.config/labwc/autostart
+Edit the autostart file to launch your application in fullscreen. Here’s an example if you’re using a web browser like Firefox or Chromium:
+
+
+#!/bin/sh
+# Launch the application in fullscreen mode
+chromium --kiosk "http://your-url-here.com" &
+Replace "http://your-url-here.com" with the URL you want to display. For local applications, replace chromium with the executable path or command of your application.
+
+Make the autostart script executable:
+
+chmod +x ~/.config/labwc/autostart
+Disable input options (optional). If you don’t want users to close the application or switch to other windows, you may want to disable keybindings and cursor visibility in LabWC.
+
+To disable keybindings, edit the LabWC configuration file (you may need to create it if it doesn’t exist):
+
+
+nano ~/.config/labwc/config
+Add the following lines to disable keybindings:
+
+
+# Disable all bindings
+bindings = false
+Optionally, you can hide the mouse cursor using an additional tool like unclutter:
+
+
+sudo apt install unclutter
+unclutter &
+Test the configuration by logging in as the kiosk user and running LabWC:
+
+
+labwc
+LabWC should start, and your application should open in fullscreen, effectively providing a kiosk experience.
+
+Autologin and Automatic Startup (Optional)
+For a fully autonomous kiosk, set up autologin for the kiosk user:
+
+Enable autologin by editing the display manager's configuration file (varies by DM, such as lightdm, gdm, or sddm).
+
+Configure the session to start LabWC upon login.
+
+For example, with LightDM, edit the /etc/lightdm/lightdm.conf file and set:
+
+
+[Seat:*]
+autologin-user=kiosk-user
+user-session=labwc
+----------------------------------------------
 Step2: enable auto login for Desktop
 
 Step3: sudo nano run_kiosk.sh
