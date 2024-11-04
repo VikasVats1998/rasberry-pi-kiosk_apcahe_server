@@ -262,7 +262,7 @@ This should display the versions of Node.js and npm.
 Once npm is installed, you can install the ws WebSocket package:
 
 	npm install express
-	sudo npm install ws
+	npm install ws
 	npm install multer
 	npm install cors
 
