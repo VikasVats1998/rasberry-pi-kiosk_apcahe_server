@@ -12,7 +12,7 @@ Then, install Node.js and npm:
 	sudo apt install nodejs npm
 
 After installation, check if npm and node are installed correctly:
-
+cd www
 	node -v
 	npm -v
 
