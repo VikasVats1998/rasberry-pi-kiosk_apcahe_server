@@ -1,0 +1,199 @@
+Step 1: Enable Developer Options and ADB Debugging
+
+Go to Settings > Device Preferences > About.
+Scroll to Build and click it 7 times to enable Developer Options.
+Navigate to Settings > Device Preferences > Developer Options.
+Turn on ADB Debugging and Network Debugging.
+Step 2: Get the Device's IP Address
+Navigate to Settings > Network & Internet.
+Select your network and note the IP Address.
+Step 3: Use ADB Over IP
+You can use ADB commands to control the NVIDIA Shield. Connect to the Shield using its IP address from a Crestron processor capable of sending TCP/IP commands.
+
+
+
+Step 1: Download ADB
+Visit the Android SDK Platform Tools download page.
+Download the Platform Tools for Windows.
+Extract the downloaded ZIP file to a convenient location, such as C:\adb.
+Step 2: Set Up ADB
+Open the folder where you extracted the tools (C:\adb).
+Ensure the folder contains files like adb.exe, fastboot.exe, and AdbWinApi.dll.
+Step 3: Add ADB to Your System PATH (Optional)
+Adding ADB to your system's PATH variable allows you to run adb commands from any folder in the Command Prompt.
+
+Press Windows + S, type Environment Variables, and select Edit the system environment variables.
+Click Environment Variables in the dialog box.
+Under System Variables, find and select Path, then click Edit.
+Click New and add the folder path where you extracted ADB (e.g., C:\adb).
+Click OK to save your changes.
+Step 4: Connect NVIDIA Shield TV
+Ensure that Network Debugging is enabled on your Shield TV:
+Go to Settings → Developer Options → Network Debugging and turn it ON.
+Find the Shield TV's IP address:
+Go to Settings → Device Preferences → About → Status → IP Address.
+Step 5: Test ADB Connection
+Open Command Prompt (cmd).
+
+Navigate to the folder where you extracted ADB, if it's not in your PATH:
+
+cmd
+Copy code
+cd C:\adb
+Connect to your Shield TV:
+
+cmd
+Copy code
+adb connect <Shield-TV-IP>:5555
+Replace <Shield-TV-IP> with your Shield TV's IP address.
+
+If successful, you should see:
+
+text
+Copy code
+connected to <Shield-TV-IP>:5555
+Step 6: Verify ADB is Working
+Run a test command, such as checking the device's connected status:
+
+cmd
+Copy code
+adb devices
+You should see a device listed with its IP address.
+
+Troubleshooting Common Issues
+ADB Not Recognized as a Command:
+
+Make sure you’re in the folder where adb.exe is located or added ADB to your PATH correctly.
+Run the command again: C:\adb\adb devices.
+Connection Fails:
+
+Ensure the Shield TV and your PC are on the same network.
+Restart the Network Debugging option on the Shield TV.
+Restart your PC.
+ADB Not Listed as a Trusted Device:
+
+If this is the first time connecting, the Shield TV will display a prompt to Allow USB Debugging. Accept it.
+
+
+Step 1: Restart ADB on the Shield
+On the NVIDIA Shield TV:
+Turn Network Debugging OFF, then turn it back ON.
+Ensure that the Shield is connected to the same network as your PC.
+Note the correct IP address of the Shield:
+Go to Settings → Device Preferences → About → Status → IP Address.
+Step 2: Restart the ADB Server on Your PC
+Open Command Prompt and type:
+cmd
+Copy code
+adb kill-server
+Start the ADB server again:
+cmd
+Copy code
+adb start-server
+Try connecting again:
+cmd
+Copy code
+adb connect 192.168.10.204:5555
+Step 3: Allow Debugging on the Shield
+When you attempt to connect, the Shield TV should display a "Allow USB Debugging" dialog box.
+
+Make sure to select Always allow from this computer and then click OK.
+If this dialog doesn't appear:
+
+Go to Settings → Device Preferences → Developer Options → Revoke USB Debugging Authorizations.
+Turn Network Debugging off and then on again.
+Step 4: Verify the Connection
+Run the following command to see if the Shield is detected:
+
+cmd
+Copy code
+adb devices
+You should see the Shield listed as:
+
+text
+Copy code
+192.168.10.204:5555 device
+Step 5: Troubleshoot Authentication Issues
+If the problem persists:
+
+Ensure the Shield TV is not blocking connections due to a firewall or router settings.
+Ensure there are no restrictions on your PC’s network that prevent ADB connections.
+Use a USB cable temporarily to establish trust:
+Connect the Shield TV to your PC via USB.
+Accept the "Allow USB Debugging" prompt.
+Disconnect the USB cable and try connecting via Wi-Fi again.
+Step 6: Verify Permissions
+Make sure you’ve enabled Developer Options and Network Debugging on the Shield TV.
+Double-check that the Shield’s IP address is correct and reachable from your PC.
+
+
+Here’s the complete list of ADB keycodes you can use to control all remote functionalities of your NVIDIA Shield TV. These keycodes simulate button presses from the Shield TV remote, including navigation, media playback, volume control, and more.
+
+Navigation and Basic Controls
+Function	ADB Command
+DPAD Up	adb shell input keyevent 19
+DPAD Down	adb shell input keyevent 20
+DPAD Left	adb shell input keyevent 21
+DPAD Right	adb shell input keyevent 22
+DPAD Center/Select	adb shell input keyevent 23
+Back	adb shell input keyevent 4
+Home	adb shell input keyevent 3
+Menu	adb shell input keyevent 1
+Recent Apps	adb shell input keyevent 187
+Media Playback Controls
+Function	ADB Command
+Play/Pause	adb shell input keyevent 85
+Stop	adb shell input keyevent 86
+Next Track	adb shell input keyevent 87
+Previous Track	adb shell input keyevent 88
+Rewind	adb shell input keyevent 89
+Fast Forward	adb shell input keyevent 90
+Volume and Power Controls
+Function	ADB Command
+Volume Up	adb shell input keyevent 24
+Volume Down	adb shell input keyevent 25
+Mute	adb shell input keyevent 164
+Power (Toggle)	adb shell input keyevent 26
+Power On	Use adb shell input keyevent 26 (if off)
+Power Off	Use adb shell input keyevent 26 (if on)
+Channel and App Launching
+Function	ADB Command
+Launch Netflix	adb shell monkey -p com.netflix.ninja -c android.intent.category.LAUNCHER 1
+Launch YouTube	adb shell monkey -p com.google.android.youtube -c android.intent.category.LAUNCHER 1
+Launch Prime Video	adb shell monkey -p com.amazon.avod.thirdpartyclient -c android.intent.category.LAUNCHER 1
+Launch Paramount+	Replace <package_name> with the app's package name from adb shell pm list packages.
+Keyboard and Input Controls
+Function	ADB Command
+Enter	adb shell input keyevent 66
+Escape	adb shell input keyevent 111
+Tab	adb shell input keyevent 61
+Space	adb shell input keyevent 62
+Delete	adb shell input keyevent 67
+Forward Delete	adb shell input keyevent 112
+Special Functions
+Function	ADB Command
+Settings	adb shell input keyevent 176
+Info	adb shell input keyevent 165
+Search	adb shell input keyevent 84
+Picture-in-Picture	adb shell input keyevent 171
+Using Custom Commands
+Find App Package Names:
+
+bash
+Copy code
+adb shell pm list packages
+Look for the package name of the app you want to launch.
+
+Custom Key Events: For custom actions or key events, use:
+
+bash
+Copy code
+adb shell input keyevent <keycode>
+Launch Apps: Replace <package_name> with the package name of the app:
+
+bash
+Copy code
+adb shell monkey -p <package_name> -c android.intent.category.LAUNCHER 1
+
+Integrating with Crestron
+Use the commands above in your Crestron setup via Serial I/O -> TCP/IP ->rasberry nodeserver -> shield ab

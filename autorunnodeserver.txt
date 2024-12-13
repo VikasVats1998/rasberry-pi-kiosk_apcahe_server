@@ -1,0 +1,136 @@
+Steps to Set Up the Node.js Server as a Systemd Service
+Create a Service File
+
+Create a new service file in /etc/systemd/system/.
+bash
+Copy code
+sudo nano /etc/systemd/system/node-server.service
+Define the Service
+
+Add the following configuration to the file:
+
+ini
+Copy code
+[Unit]
+Description=Node.js Server for Crestron Commands
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/node /path/to/your/server.js
+Restart=always
+User=pi
+Group=pi
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=NODE_ENV=production
+WorkingDirectory=/path/to/your
+
+[Install]
+WantedBy=multi-user.target
+Replace /path/to/your/server.js with the full path to your Node.js server script.
+
+If the node executable is not in /usr/bin/, you can find its location with:
+
+bash
+Copy code
+which node
+Reload Systemd Daemon
+
+Reload systemd to register the new service:
+bash
+Copy code
+sudo systemctl daemon-reload
+Enable the Service
+
+Enable the service to start on boot:
+bash
+Copy code
+sudo systemctl enable node-server
+Start the Service
+
+Start the Node.js server service manually (optional for testing):
+bash
+Copy code
+sudo systemctl start node-server
+Check Service Status
+
+Verify that the service is running:
+
+bash
+Copy code
+sudo systemctl status node-server
+You should see Active: active (running) if the server is running correctly.
+
+Stopping the Server Automatically
+When the Raspberry Pi shuts down, the service will be stopped automatically because systemd ensures all active services are terminated.
+
+Managing the Service
+Start the Service Manually:
+bash
+Copy code
+sudo systemctl start node-server
+Stop the Service Manually:
+bash
+Copy code
+sudo systemctl stop node-server
+Restart the Service:
+bash
+Copy code
+sudo systemctl restart node-server
+Disable the Service (to prevent it from starting at boot):
+bash
+Copy code
+sudo systemctl disable node-server
+
+
+
+
+With fix 
+
+Steps to Fix the Service File
+Edit the Service File
+
+Open the systemd service file for editing:
+
+bash
+Copy code
+sudo nano /etc/systemd/system/node-server.service
+Add the Install Section
+
+Make sure the Install section is present and includes WantedBy=multi-user.target, which tells systemd to start the service during the boot process.
+
+The service file should look like this:
+
+ini
+Copy code
+[Unit]
+Description=Node.js Server for Crestron Commands
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/node /home/admin/www/adb_server.js
+Restart=always
+User=admin
+Group=admin
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=NODE_ENV=production
+WorkingDirectory=/home/admin/www
+
+[Install]
+WantedBy=multi-user.target
+Reload systemd and Enable the Service
+
+After saving the file, reload systemd to apply the changes:
+
+bash
+Copy code
+sudo systemctl daemon-reload
+Enable the Service
+
+Now, you should be able to enable the service to start at boot:
+
+bash
+Copy code
+sudo systemctl enable node-server
+Explanation of the WantedBy=multi-user.target
+multi-user.target: This is a systemd target that corresponds to the runlevel where the system is ready for multi-user mode, with networking and most services running. It's typically where most services (like your Node.js server) are started.
+WantedBy: This option tells systemd that your service should be started when the system enters the specified target (multi-user.target in this case).

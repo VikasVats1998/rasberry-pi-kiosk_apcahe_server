@@ -1,0 +1,40 @@
+To automatically clear the Chromium browser cache on your Raspberry Pi 5, we'll combine a shell script with a cron job. The script will delete the cache files, and the cron job will schedule the script to run at your desired intervals.
+
+Steps:
+
+Create a Script:
+
+Open a terminal window on your Raspberry Pi.
+Use a text editor like nano or vim to create a new script:
+
+sudo nano clear_cache.sh
+
+Use code with caution.
+
+Paste the following script into the editor:
+
+#!/bin/bash
+# Clear Chromium cache
+rm -rf ~/.cache/Chromium/Default/Cache/*
+
+Use code with caution.
+
+Save the script and make it executable:
+
+sudo chmod +x clear_cache.sh
+
+Use code with caution.
+
+Set Up a Cron Job:
+
+Open the crontab editor:
+
+sudo crontab -e
+
+Use code with caution.
+
+Add a line to schedule the script to run at your desired time and interval. For example, to run it every day at 3 AM:
+
+0 3 * * * /path/to/your/script/clear_cache.sh
+
+Replace /path/to/your/script/clear_cache.sh with the actual path to your script.

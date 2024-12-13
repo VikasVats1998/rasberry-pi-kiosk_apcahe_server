@@ -1,0 +1,27 @@
+const net = require('net');
+
+const HOST = '0.0.0.0'; // Listen on all interfaces
+const PORT = 5000;      // Replace with your desired port
+
+const server = net.createServer((socket) => {
+    console.log('Client connected:', socket.remoteAddress, socket.remotePort);
+
+    socket.on('data', (data) => {
+        console.log('Received from Crestron:', data.toString());
+        
+        // Optionally, send a response back to Crestron
+        socket.write('Hello from Raspberry Pi!');
+    });
+
+    socket.on('close', () => {
+        console.log('Connection closed');
+    });
+
+    socket.on('error', (err) => {
+        console.error('Socket error:', err);
+    });
+});
+
+server.listen(PORT, HOST, () => {
+    console.log(`Server listening on ${HOST}:${PORT}`);
+});

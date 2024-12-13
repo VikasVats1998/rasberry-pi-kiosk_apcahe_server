@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generic</title>
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+
+  <!-- Custom font import -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700&display=swap"
+    rel="stylesheet" />
+
+</head>
+
+<body>
+  <!-- The div is used as a wrapper for the buttons for easy access in javascript -->
+
+
+  <div class="container">
+    <div class="sidebar">
+      <a href="index.html">Dashboard</a>
+      <a href="audiocontrol.html" class="active">Marantz</a>
+      <a href="tvcontrol.html">TV</a>
+    </div>
+    <div class="main">
+      <div class="remote-container">
+        <div class="remote-display">
+          <span>Ready</span>
+        </div>
+        <div class="remote-controls">
+          <!-- Buttons with corrected attributes -->
+          <div class="sources">
+            <button class="demo" id="src1" value=" type=" data-ch5-id="src1" data-ch5-join-digital="1"
+              data-ch5-join-analog="" data-ch5-join-serial="">Power</button>
+
+            <button class="demo" id="src5" value=" type=" data-ch5-id="src5" data-ch5-join-digital="5"
+              data-ch5-join-analog="" data-ch5-join-serial="">iPhone</button>
+
+            <button class="demo" id="src6" value=" type=" data-ch5-id="src6" data-ch5-join-digital="6"
+              data-ch5-join-analog="" data-ch5-join-serial="">Android</button>
+
+            <button class="demo" id="src7" value=" type=" data-ch5-id="src7" data-ch5-join-digital="7"
+              data-ch5-join-analog="" data-ch5-join-serial="">PC</button>
+
+            <button class="demo" id="src9" value=" type=" data-ch5-id="src9" data-ch5-join-digital="9"
+              data-ch5-join-analog="" data-ch5-join-serial="">Mute</button>
+
+          </div>
+
+          <div class="sources">
+            <button class="demo" id="src10" value="" type="button" data-ch5-id="src10" data-ch5-join-digital="10"
+              data-ch5-join-analog="" data-ch5-join-serial="">25%</button>
+              
+            <button class="demo" id="src11" value="" type="button" data-ch5-id="src11" data-ch5-join-digital="11"
+              data-ch5-join-analog="" data-ch5-join-serial="">50%</button>
+              
+            <button class="demo" id="src12" value="" type="button" data-ch5-id="src12" data-ch5-join-digital="12"
+              data-ch5-join-analog="" data-ch5-join-serial="">Vol -</button>
+              
+            <button class="demo" id="src13" value="" type="button" data-ch5-id="src13" data-ch5-join-digital="13"
+              data-ch5-join-analog="" data-ch5-join-serial="">Vol +</button>
+              
+          </div>
+          
+          <!-- Sliders with corrected attributes -->
+          <div class="controls">
+            <label for="shading-control">Shading Control:</label>
+            <input type="range" id="shading-control" min="0" max="100" step="1" data-ch5-join-analog="150" />
+          </div>
+
+          <div class="controls">
+            <label for="volume-control">Volume Control:</label>
+            <input type="range" id="volume-control" min="0" max="100" step="1" data-ch5-join-analog="151" />
+          </div>
+
+        </div>
+        <div class="status">
+          <p>Status: Connected to NVIDIA Shield</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Continue to add similar divs for all other buttons in your file -->
+
+  <!-- Linking Javascript file to html -->
+  <script type="text/javascript" src="assets/js/index.js"></script>
+
+</body>
+
+</html>
