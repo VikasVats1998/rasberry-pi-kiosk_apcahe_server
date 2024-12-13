@@ -1,0 +1,83 @@
+How to setup a FTP server on rasberry pi
+Step 1: Install vsftpd (Very Secure FTP Daemon)
+	This is a popular FTP server that works well on Raspberry Pi.
+
+	Open a terminal on your Raspberry Pi.
+	Update your package lists:
+
+	sudo apt update
+Install vsftpd:
+
+	sudo apt install vsftpd
+
+Step 2: Configure vsftpd
+	Now, you’ll need to modify the vsftpd configuration file to allow FTP access to the /var/www/html/ directory.
+
+	Open the configuration file:
+
+	sudo nano /etc/vsftpd.conf
+
+	Make the following changes:
+
+	Find anonymous_enable=YES and change it to:
+
+		anonymous_enable=NO
+		local_enable=YES
+		write_enable=YES
+
+	Add the following line at the end of the file to restrict users to their home directories:
+
+		chroot_local_user=YES
+
+If you want to allow users to navigate outside their home directory (to /var/www/html), you can add the following lines:
+
+		allow_writeable_chroot=YES
+			Save and close the file (press CTRL+X, then Y, and Enter).
+
+Step 3: Create a User for FTP Access
+	You’ll need to create a user or modify an existing user that has access to /var/www/html/.
+
+Create a new user (or skip this if you already have one):
+
+	sudo adduser ftpuser
+
+	Set the user’s home directory to /var/www/html/:
+
+
+	sudo usermod -d /var/www/html ftpuser
+	Set proper permissions for the /var/www/html/ directory:
+
+	sudo chown -R ftpuser:ftpuser /var/www/html
+Step 4: Restart vsftpd
+	After making the changes, restart the vsftpd service to apply them:
+
+	sudo systemctl restart vsftpd
+
+Step 5: Connect via FileZilla
+Open FileZilla on your computer.
+
+Enter the following details:
+
+Host: Your Raspberry Pi’s IP address.
+Username: The username you created or your default one (e.g., ftpuser).
+Password: The password for the user.
+Port: 21.
+Click Quickconnect and you should be able to access the /var/www/html/ directory and manage files.
+---------------------------------------------------------------------------------------------------------------
+How to change FTP user password
+
+1. List FTP Users
+The users for your FTP server are typically defined in the system's user database. You can view the users who have been created on your Raspberry Pi by checking the /etc/passwd file. To list all users, you can run:
+
+	cut -d: -f1 /etc/passwd
+
+2. Change FTP User Passwords
+To change the password for a specific user on your Raspberry Pi, you can use the passwd command. Here’s how:
+
+Open the terminal.
+
+Run the following command, replacing username with the actual username:
+
+
+sudo passwd username
+You will be prompted to enter a new password and confirm it.

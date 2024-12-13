@@ -1,0 +1,21 @@
+Update and upgrade the system
+	sudo apt update
+	sudo apt upgrade -y
+
+Install Apache
+	sudo apt install apache2 -y
+
+Start and enable Apache service
+	sudo systemctl start apache2
+
+To enable Apache to start on boot, run:
+	sudo systemctl enable apache2
+	
+Change Ownership of the Directory  (This changes ownership to the user pi and the group www-data (the default group for Apache)
+	sudo chown -R pi:www-data /var/www/html
+
+Set Permissions for the Directory (755: Read and execute permissions for everyone, but write permissions only for the owner (more secure):)
+	sudo chmod -R 777 /var/www/html
+	
+Restart Apache (optional)
+	sudo systemctl restart apache2
