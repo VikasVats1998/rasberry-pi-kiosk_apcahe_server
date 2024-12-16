@@ -35,165 +35,190 @@ Go to Settings → Device Preferences → About → Status → IP Address.
 Step 5: Test ADB Connection
 Open Command Prompt (cmd).
 
-Navigate to the folder where you extracted ADB, if it's not in your PATH:
+Below is a comprehensive list of ADB (Android Debug Bridge) commands you can use to control an NVIDIA Shield P3430 over a network:
 
-cmd
+1. Connect to NVIDIA Shield via ADB over Network
+Enable Developer Options and ADB Debugging on the Shield:
+
+Go to Settings > Device Preferences > About.
+Click Build number repeatedly to enable Developer Options.
+Navigate to Settings > Device Preferences > Developer options > Debugging, and enable ADB over Network.
+Find the IP address of the Shield:
+
+Go to Settings > Network & Internet, and locate the IP.
+Connect via ADB from your PC:
+
+bash
 Copy code
-cd C:\adb
-Connect to your Shield TV:
-
-cmd
-Copy code
-adb connect <Shield-TV-IP>:5555
-Replace <Shield-TV-IP> with your Shield TV's IP address.
-
-If successful, you should see:
-
-text
-Copy code
-connected to <Shield-TV-IP>:5555
-Step 6: Verify ADB is Working
-Run a test command, such as checking the device's connected status:
-
-cmd
+adb connect <IP_ADDRESS>:5555
+2. General ADB Commands
+Check Connection
+bash
 Copy code
 adb devices
-You should see a device listed with its IP address.
-
-Troubleshooting Common Issues
-ADB Not Recognized as a Command:
-
-Make sure you’re in the folder where adb.exe is located or added ADB to your PATH correctly.
-Run the command again: C:\adb\adb devices.
-Connection Fails:
-
-Ensure the Shield TV and your PC are on the same network.
-Restart the Network Debugging option on the Shield TV.
-Restart your PC.
-ADB Not Listed as a Trusted Device:
-
-If this is the first time connecting, the Shield TV will display a prompt to Allow USB Debugging. Accept it.
-
-
-Step 1: Restart ADB on the Shield
-On the NVIDIA Shield TV:
-Turn Network Debugging OFF, then turn it back ON.
-Ensure that the Shield is connected to the same network as your PC.
-Note the correct IP address of the Shield:
-Go to Settings → Device Preferences → About → Status → IP Address.
-Step 2: Restart the ADB Server on Your PC
-Open Command Prompt and type:
-cmd
+Disconnect ADB
+bash
 Copy code
-adb kill-server
-Start the ADB server again:
-cmd
+adb disconnect
+3. System Controls
+Reboot the Device
+bash
 Copy code
-adb start-server
-Try connecting again:
-cmd
+adb reboot
+Reboot into Recovery Mode
+bash
 Copy code
-adb connect 192.168.10.204:5555
-Step 3: Allow Debugging on the Shield
-When you attempt to connect, the Shield TV should display a "Allow USB Debugging" dialog box.
-
-Make sure to select Always allow from this computer and then click OK.
-If this dialog doesn't appear:
-
-Go to Settings → Device Preferences → Developer Options → Revoke USB Debugging Authorizations.
-Turn Network Debugging off and then on again.
-Step 4: Verify the Connection
-Run the following command to see if the Shield is detected:
-
-cmd
+adb reboot recovery
+Reboot into Bootloader Mode
+bash
 Copy code
-adb devices
-You should see the Shield listed as:
-
-text
+adb reboot bootloader
+Power Off
+bash
 Copy code
-192.168.10.204:5555 device
-Step 5: Troubleshoot Authentication Issues
-If the problem persists:
-
-Ensure the Shield TV is not blocking connections due to a firewall or router settings.
-Ensure there are no restrictions on your PC’s network that prevent ADB connections.
-Use a USB cable temporarily to establish trust:
-Connect the Shield TV to your PC via USB.
-Accept the "Allow USB Debugging" prompt.
-Disconnect the USB cable and try connecting via Wi-Fi again.
-Step 6: Verify Permissions
-Make sure you’ve enabled Developer Options and Network Debugging on the Shield TV.
-Double-check that the Shield’s IP address is correct and reachable from your PC.
-
-
-Here’s the complete list of ADB keycodes you can use to control all remote functionalities of your NVIDIA Shield TV. These keycodes simulate button presses from the Shield TV remote, including navigation, media playback, volume control, and more.
-
-Navigation and Basic Controls
-Function	ADB Command
-DPAD Up	adb shell input keyevent 19
-DPAD Down	adb shell input keyevent 20
-DPAD Left	adb shell input keyevent 21
-DPAD Right	adb shell input keyevent 22
-DPAD Center/Select	adb shell input keyevent 23
-Back	adb shell input keyevent 4
-Home	adb shell input keyevent 3
-Menu	adb shell input keyevent 1
-Recent Apps	adb shell input keyevent 187
-Media Playback Controls
-Function	ADB Command
-Play/Pause	adb shell input keyevent 85
-Stop	adb shell input keyevent 86
-Next Track	adb shell input keyevent 87
-Previous Track	adb shell input keyevent 88
-Rewind	adb shell input keyevent 89
-Fast Forward	adb shell input keyevent 90
-Volume and Power Controls
-Function	ADB Command
-Volume Up	adb shell input keyevent 24
-Volume Down	adb shell input keyevent 25
-Mute	adb shell input keyevent 164
-Power (Toggle)	adb shell input keyevent 26
-Power On	Use adb shell input keyevent 26 (if off)
-Power Off	Use adb shell input keyevent 26 (if on)
-Channel and App Launching
-Function	ADB Command
-Launch Netflix	adb shell monkey -p com.netflix.ninja -c android.intent.category.LAUNCHER 1
-Launch YouTube	adb shell monkey -p com.google.android.youtube -c android.intent.category.LAUNCHER 1
-Launch Prime Video	adb shell monkey -p com.amazon.avod.thirdpartyclient -c android.intent.category.LAUNCHER 1
-Launch Paramount+	Replace <package_name> with the app's package name from adb shell pm list packages.
-Keyboard and Input Controls
-Function	ADB Command
-Enter	adb shell input keyevent 66
-Escape	adb shell input keyevent 111
-Tab	adb shell input keyevent 61
-Space	adb shell input keyevent 62
-Delete	adb shell input keyevent 67
-Forward Delete	adb shell input keyevent 112
-Special Functions
-Function	ADB Command
-Settings	adb shell input keyevent 176
-Info	adb shell input keyevent 165
-Search	adb shell input keyevent 84
-Picture-in-Picture	adb shell input keyevent 171
-Using Custom Commands
-Find App Package Names:
-
+adb shell reboot -p
+4. App Management
+List Installed Apps
 bash
 Copy code
 adb shell pm list packages
-Look for the package name of the app you want to launch.
-
-Custom Key Events: For custom actions or key events, use:
-
+Install an APK
 bash
 Copy code
-adb shell input keyevent <keycode>
-Launch Apps: Replace <package_name> with the package name of the app:
-
+adb install <path_to_apk_file>
+Uninstall an App
+bash
+Copy code
+adb uninstall <package_name>
+Force Stop an App
+bash
+Copy code
+adb shell am force-stop <package_name>
+Clear App Data
+bash
+Copy code
+adb shell pm clear <package_name>
+Start an App
 bash
 Copy code
 adb shell monkey -p <package_name> -c android.intent.category.LAUNCHER 1
+5. File Management
+Push File to Shield
+bash
+Copy code
+adb push <local_file_path> <remote_path>
+Pull File from Shield
+bash
+Copy code
+adb pull <remote_file_path> <local_path>
+List Files in Directory
+bash
+Copy code
+adb shell ls <directory_path>
+6. Input Controls
+Simulate Key Press
+bash
+Copy code
+adb shell input keyevent <key_code>
+Common Key Codes:
 
-Integrating with Crestron
-Use the commands above in your Crestron setup via Serial I/O -> TCP/IP ->rasberry nodeserver -> shield ab
+KEYCODE_HOME: 3
+KEYCODE_BACK: 4
+KEYCODE_MENU: 82
+KEYCODE_POWER: 26
+KEYCODE_VOLUME_UP: 24
+KEYCODE_VOLUME_DOWN: 25
+KEYCODE_DPAD_UP: 19
+KEYCODE_DPAD_DOWN: 20
+KEYCODE_DPAD_LEFT: 21
+KEYCODE_DPAD_RIGHT: 22
+KEYCODE_ENTER: 66
+Simulate Tap
+bash
+Copy code
+adb shell input tap <x> <y>
+Simulate Swipe
+bash
+Copy code
+adb shell input swipe <x1> <y1> <x2> <y2> <duration_ms>
+Input Text
+bash
+Copy code
+adb shell input text "<text>"
+7. Display and Audio
+Capture Screenshot
+bash
+Copy code
+adb shell screencap /sdcard/screenshot.png
+adb pull /sdcard/screenshot.png
+Record Screen
+bash
+Copy code
+adb shell screenrecord /sdcard/screenrecord.mp4
+adb pull /sdcard/screenrecord.mp4
+Adjust Volume
+Increase:
+bash
+Copy code
+adb shell input keyevent 24
+Decrease:
+bash
+Copy code
+adb shell input keyevent 25
+Mute
+bash
+Copy code
+adb shell media volume --stream 3 --set 0
+8. Debugging and Logs
+View Logcat (Debug Logs)
+bash
+Copy code
+adb logcat
+Filter Logcat by Specific Tag
+bash
+Copy code
+adb logcat | grep <tag>
+Bug Report
+bash
+Copy code
+adb bugreport > bugreport.zip
+9. Advanced Controls
+Wake the Device
+bash
+Copy code
+adb shell input keyevent 26
+Keep the Screen Awake
+bash
+Copy code
+adb shell settings put global stay_on_while_plugged_in 1
+Reset Stay Awake Settings
+bash
+Copy code
+adb shell settings put global stay_on_while_plugged_in 0
+Disable Sleep Mode
+bash
+Copy code
+adb shell settings put system screen_off_timeout 2147483647
+Reset Sleep Mode
+bash
+Copy code
+adb shell settings put system screen_off_timeout 300000
+10. Network Commands
+Restart Wi-Fi
+bash
+Copy code
+adb shell svc wifi disable
+adb shell svc wifi enable
+Show IP Address
+bash
+Copy code
+adb shell ifconfig wlan0
+Ping a Website
+bash
+Copy code
+adb shell ping -c 4 google.com
+11. Factory Reset
+Perform Factory Reset
+bash
+Copy code
+adb shell am broadcast -a android.intent.action.MASTER_CLEAR
